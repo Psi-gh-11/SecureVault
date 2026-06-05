@@ -9,9 +9,9 @@ import smtplib
 from email.mime.text import MIMEText
 
 app = Flask(__name__)
-app.secret_key = "anyrandomstring123"
+app.secret_key = "your_secret_key"
 load_dotenv()
-db = mysql.connector.connect(host="localhost",user="root",password="password123",database="SecureVaultDB")
+db = mysql.connector.connect(host="localhost",user="root",password="your_password",database="SecureVaultDB")
 FERNET_KEY = os.getenv("FERNET_KEY")
 fernet = Fernet(FERNET_KEY)
 
