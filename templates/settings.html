@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentials Vault | Settings</title>
+    <style>
+        #svg {width: 25px !important; height: 25px !important; padding: 10px; border-radius: 20px; background-color: #0a1431;}
+        #svg:hover {transition: 0.3s ease; background-color: #00c896; opacity: 0.7; stroke: rgb(63, 58, 58);}
+        #btn {width:20%; margin-left: 5%; padding: 12px;}
+        #h {margin-left: 5%; color: white; font-size: 40px; margin-bottom: 10px;}
+        #p {margin-left: 5%; color: #8e9795; margin-top: 0; font-size: 18px;}
+        #svg1 {width: 35px !important; height: 35px !important; padding: 10px; background-color: #1e2747;}
+        .bu {width: fit-content; display: flex; justify-content: right;}
+    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="top-right">
+            <a href="/settings"><i id="svg" data-lucide="settings"></i></a>
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+    <div>
+        <a style="text-decoration: none;" href="/dashboard"><button id="btn">👈 Back to Dashboard</button></a>
+    </div>
+    <div>
+        <h1 id="h" style="color: #14f5bc;">Account Settings</h1>
+        <p id="p">Manage your account information and preferences</p>
+        <p id="p">Last Updated: {{ updated_at }}</p>
+    </div>
+    <div class="block">
+        <div class="header">
+            <i id="i1" data-lucide="user"></i>
+            <h4>Profile Information</h4>
+        </div>
+        <form action="/save" method="POST">
+            <div class="form-grid">
+                <div class="edit">
+                    <label>User Name</label>
+                    <input type="text" name="username" id="username" value="{{ username }}" readonly>
+                    <span class="edit-icon" onclick="enableEdit('username')"><i data-lucide="pencil"></i></span>
+                </div>
+                <div class="edit">
+                    <label>Email Address</label>
+                    <input type="email" name="email" id="email" value="{{ email }}" readonly>
+                    <span class="edit-icon" onclick="enableEdit('email')"><i data-lucide="pencil"></i></span>
+                </div>
+                <div class="edit">
+                    <label>Location</label>
+                    <input type="text" name="location" id="location" value="{{ location }}" readonly>
+                    <span class="edit-icon" onclick="enableEdit('location')"><i data-lucide="pencil"></i></span>
+                </div>
+                <div class="edit">
+                    <label>Account Type</label>
+                    <input type="text" name="acctype" id="acctype" value="{{ acctype }}" readonly>
+                    <span class="edit-icon" onclick="enableEdit('acctype')"><i data-lucide="pencil"></i></span>
+                </div>
+            </div>
+            <div class="btn">
+                <button type="submit" onclick="saveLocal()">Save Changes</button>
+                <button type="reset">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="set-card">
+        <div class="set">
+            <div class="text">
+                <i data-lucide="calendar"></i>
+                <p>Member Since</p>
+            </div>
+            <div class="para1">
+                <h3 style="font-size: 22px; display: flex; color: #14f5bc; width: 100%; justify-content: center; margin: 5px auto;">{{ created_at }}</h3>
+            </div>
+        </div>
+        <div class="set">
+            <div class="text">
+                <i data-lucide="lock"></i>
+                <p>Total Vaults</p>
+            </div>
+            <div class="para1">
+                <h3 style="font-size: 30px; display: flex; color: #14f5bc; width: 100%; justify-content: center; margin: auto;">{{ count }}</h3>
+            </div>
+        </div>
+        <div class="set">
+            <div class="text">
+                <i data-lucide="key"></i>
+                <p>Total Credentials</p>
+            </div>
+            <div class="para1">
+                <h3 style="font-size: 30px; display: flex; color: #14f5bc; width: 100%; justify-content: center; margin: auto;">{{ credcount }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="sec">
+        <div class="sec-set">
+            <i id="svg1" data-lucide="shield"></i>
+            <h3>Security Settings</h3>
+        </div>
+        <div class="info">
+            <div><i id="svg1" data-lucide="key"></i></div>
+            <div class="word">
+                <h3 style="color: #cc2f1a;">Change Master Password</h3>
+                <p>Update your master password</p>
+            </div>
+            <div class="butn">
+                <a style="text-decoration: none;" href="/send-otp"><button class="bu">Change Password</button></a>
+            </div>
+        </div>
+        <div class="info">
+            <div><i id="svg1" data-lucide="smartphone"></i></div>
+            <div class="word">
+                <h3 style="color: #3afda2;">Two-Factor Authentication</h3>
+                <p>Add an extra layer of security</p>
+            </div>
+            <div class="butnn">Enabled</div>
+        </div>
+        <div class="info">
+            <div><i id="svg1" data-lucide="bell"></i></div>
+            <div class="word">
+                <h3 style="color: #175df5;">Security Alerts</h3>
+                <p>Get notified about suspicious activity</p>
+            </div>
+            <div class="butnn">Enabled</div>
+        </div>
+    </div>
+    <div id="overlay" onclick="closePopup()"></div>
+    <div id="popup">
+        <!-- STEP 1: OTP -->
+        <form method="POST" action="/verify" id="otpForm">
+            <h3 id="h">OTP Authentication</h3>
+            <label id="l">Enter your One Time Password (OTP) received on Email</label>
+            <input id="I" type="text" name="otp" placeholder="Enter OTP" required>
+            <button type="submit">Verify</button>
+        </form>
+        <!-- STEP 2: PASSWORD (hidden initially) -->
+        <form method="POST" action="/change" id="passForm">
+            <h3 id="h">Set New Password</h3>
+            <label id="l">Enter new password</label>
+            <input id="I" type="password" name="new_password" required>
+            <label id="l">Re-enter password</label>
+            <input id="I" type="password" name="confirm_password" required>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    {% if not otp_verified %}
+    <script>
+        document.getElementById("otpForm").style.display = "block";
+        document.getElementById("passForm").style.display = "none";
+    </script>
+    {% else %}
+    <script>
+        document.getElementById("otpForm").style.display = "none";
+        document.getElementById("passForm").style.display = "block";
+    </script>
+    {% endif %}
+    <script src="/static/script.js"></script>
+    {% if otp_sent %}
+    <script>
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+    </script>
+    {% endif %}
+    <script>lucide.createIcons();</script>
+</body>
+</html>

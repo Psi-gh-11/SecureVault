@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentails Vault | Vault Details</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        h2{color: #2ff1c1; text-align: center;} 
+        label{text-align: left; margin: 10px;}
+        #svg {width: 25px !important; height: 25px !important; padding: 10px; border-radius: 20px; background-color: #0a1431;}
+        #svg:hover {transition: 0.3s ease; background-color: #00c896; opacity: 0.7; stroke: rgb(63, 58, 58);}
+        #i {width: 25px !important; height: 25px !important;}
+    </style>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="top-right">
+            <a href="/settings"><i id="svg" data-lucide="settings"></i></a>
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+    <a style="text-decoration: none;" href="/dashboard"><button style="width: fit-content; display: flex;">👈 Back to Dashboard</button></a>
+    <div class="vault-details">
+        <h1 style="color:white; font-size: 40px;">Vault Details</h1>
+        <div class="vault-details-page">
+            {% if not (passwords or cards or notes or apis) %}
+                <div class="empty-state">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" class="empty-img">
+                    <h2>Nothing to view here</h2>
+                    <p>Create your first vault today!</p>
+                    <a href="/vault">
+                        <button>Create Vault +</button>
+                    </a>
+                </div>
+            {% else %}
+            <!-- PASSWORD VAULT -->
+            {% if passwords %}
+            <h2>Password Vault</h2>
+            {% for p in passwords %}
+            <div class="vault-card">
+                <i data-lucide="pencil" onclick="enableEdit(this)"></i>
+                <form method="POST" action="/update/password/{{ p[0] }}">
+                    <label>Website</label>
+                    <input type="text" name="site" value="{{ p[1] }}" readonly>
+                    <label>Username</label>
+                    <input type="text" name="username" value="{{ p[2] }}" readonly>
+                    <label>Password</label>
+                    <input type="text" name="password" value="{{ p[3] }}" readonly>
+                    <button type="submit" class="save-btn" style="display:none;">Save</button>
+                </form>
+                <form action="/delete_website/{{ p[0] }}" method="POST">
+                    <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- CARD VAULT -->
+            {% if cards %}
+            <h2>Card Vault</h2>
+            {% for c in cards %}
+            <div class="vault-card">
+                <i data-lucide="pencil" onclick="enableEdit(this)"></i>
+                <form method="POST" action="/update/card/{{ c[0] }}">
+                    <label>Card Number</label>
+                    <input type="text" name="card_no" value="{{ c[1] }}" readonly>
+                    <label>Expiry</label>
+                    <input type="text" name="expiry" value="{{ c[2] }}" readonly>
+                    <label>Note</label>
+                    <input type="text" name="note" value="{{ c[3] }}" readonly>
+                    <button type="submit" class="save-btn" style="display:none;">Save</button>
+                </form>
+                <form action="/delete_card/{{ c[0] }}" method="POST">
+                    <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if notes %}
+            <h2>Notes Vault</h2>
+            {% for n in notes %}
+            <div class="vault-card">
+
+                <i data-lucide="pencil" onclick="enableEdit(this)"></i>
+
+                <form method="POST" action="/update/note/{{ n[0] }}">
+                    <label>Note</label>
+                    <textarea name="note" readonly>{{ n[1] }}</textarea>
+
+                    <button type="submit" class="save-btn" style="display:none;">Save</button>
+                </form>
+                <form action="/delete_note/{{ n[0] }}" method="POST">
+                    <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- API -->
+                {% if apis %}
+                <h2>API Vault</h2>
+                {% for a in apis %}
+                <div class="vault-card">
+                    <i data-lucide="pencil" onclick="enableEdit(this)"></i>
+                    <form method="POST" action="/update/api/{{ a[0] }}">
+                        <label>Service</label>
+                        <input type="text" name="service" value="{{ a[1] }}" readonly>
+                        <label>API Key</label>
+                        <input type="text" name="apikey" value="{{ a[2] }}" readonly>
+                        <button type="submit" class="save-btn" style="display:none;">Save</button>
+                    </form>
+                    <form action="/delete_api/{{ a[0] }}" method="POST">
+                        <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>lucide.createIcons();</script>
+    <script>
+function enableEdit(icon) {
+    let card = icon.parentElement;
+
+    // enable all inputs
+    let inputs = card.querySelectorAll("input, textarea");
+    inputs.forEach(inp => {
+        inp.removeAttribute("readonly");
+        inp.style.border = "1px solid #14f5bc";
+    });
+
+    // show save button
+    let btn = card.querySelector(".save-btn");
+    if (btn) btn.style.display = "block";
+}
+</script>
+</body>
+</html>

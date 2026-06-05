@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a{color: white;}
+        a:hover{color: #25eee4;}
+        p{text-align:center;}
+    </style>
+    <title>Personal Credentials Vault | Sign Up</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <form action="/signup" method="POST">
+        <div class="top-left-p">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="card">
+            <div class="setup">
+                <h2>Create Your Vault</h2>
+                <p>Set up your secure credentials vault in seconds</p>
+                <div class="setup-icon">
+                    <div class="ring">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="signup">
+                <label>Full Name</label><br>
+                <div class="input-group">
+                    <i data-lucide="user"></i>
+                    <input type="text" name="name" placeholder="Ex: John Doe" required>
+                </div>
+                <label>Email</label><br>
+                <div class="input-group">
+                    <i data-lucide="mail"></i>
+                    <input type="email" name="email" placeholder="Ex: you@example.com" required>
+                </div>
+                <label>Master Password</label><br>
+                <div class="input-group">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="master" name="master" placeholder="Create a Strong Master Password" required>
+                    <span class="eye" onclick="togglePassword('master')"><i data-lucide="eye" id="eye-master"></i></span>
+                </div>
+                <label>Confirm Master Password</label><br>
+                <div class="input-group">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="confirm" name="confirm" placeholder="Re-Enter your Master Password" required>
+                    <span class="eye" onclick="togglePassword('confirm')"><i data-lucide="eye" id="eye-confirm"></i></span>
+                </div>
+                <div class="rules">
+                    <h4>Master Password must contain:</h4>
+                    <div class="rule-item"><i id="i" data-lucide="check-circle"></i><p>At least 12 characters</p></div>
+                    <div class="rule-item"><i id="i" data-lucide="check-circle"></i><p>One uppercase &amp; lowercase letter</p></div>
+                    <div class="rule-item"><i id="i" data-lucide="check-circle"></i><p>One number &amp; special character</p></div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree">
+                    <label for="agree">I Agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                <button>Submit</button>
+                <p>Already have an account? <a href="/login">Login</a> here</p>
+            </div>
+        </div>
+        <script src="/static/script.js"></script>
+        <script>lucide.createIcons();</script>
+    </form>
+</body>
+</html>

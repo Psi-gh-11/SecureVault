@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentials Vault | Login</title>
+    <style>
+        a{color: white;}
+        a:hover{color: #25eee4;}
+        p{text-align:center;}
+    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <form action="/login" method="POST">
+        <div class="top-left-p">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="card">
+            <div class="setup">
+                <h2>Unlock Your Vault</h2>
+                <p>Enter your credentials to access your secure vault</p>
+                <div class="setup-icon">
+                    <div class="ring">
+                        <i data-lucide="scan-face"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="signup">
+                <label>Email</label><br>
+                <div class="input-group">
+                    <i data-lucide="mail"></i>
+                    <input type="email" name="email" placeholder="Ex: you@example.com" required>
+                </div>
+                <label>Master Password</label><br>
+                <div class="input-group">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="master" name="master" placeholder="Enter your Master Password" required>
+                    <span class="eye" onclick="togglePassword('master')"><i data-lucide="eye" id="eye-master"></i></span>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree">
+                    <label for="agree">Remember Me</a></label>
+                </div>
+                <button>Submit</button>
+                <p>New here? <a href="/signup">Sign In</a> Instead</p>
+        </div>
+        <script src="/static/script.js"></script>
+        <script>lucide.createIcons();</script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentials Vault | Home</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="top-right">
+            <a href="/login">Login</a>
+            <a href="/signup"><button>Get Started</button></a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="trust">
+            <p>Trusted <i data-lucide="badge-check"></i> Encrypted <i data-lucide="shield-check"></i> Yours <i data-lucide="user-check"></i></p>
+        </div>
+        <h2 id="h1">Your Digital Vault for</h2>
+        <h2 id="h2">All Your Credentials</h2>
+        <div class="para">
+            <p id="p1">Keep your Passwords, Credentials and Important Information Locked away and Stored Securely.</p>
+            <p id="p2">Access them anytime, anywhere with encryption enabled so only <b>you</b> can access your data safely.</p>
+        </div>
+        <div class="btn">
+            <a href="/signup"><button>Create Your Vault</button></a>
+            <a><button onclick="openLearnPopup()">Learn More</button></a>
+            <div id="overlay" onclick="closeLearnPopup()"></div>
+            <div id="learnPopup">
+                <h1>Welcome to SecureVault 🔐</h1>
+                <p>
+                    SecureVault is a privacy-focused credential management system designed to help users securely store passwords,
+                    API keys, notes, and sensitive data in encrypted vaults. Built using strong encryption techniques, it ensures
+                    that only the rightful user can access their information.
+                </p>
+                <p>
+                    This platform was created to solve the common problem of managing multiple credentials across websites while
+                    maintaining high security. With features like password strength analysis, vault categorization, and secure
+                    authentication, SecureVault helps users stay organized and protected.
+                </p>
+                <p>
+                    Whether you're a student, developer, or professional, SecureVault provides a simple yet powerful way to manage
+                    your digital identity safely.
+                </p>
+                <p style="margin-top: 20px; color: #14f5bc;">
+                    © Prachi Shankar Inamdar
+                </p>
+                <button onclick="closeLearnPopup()">Close</button>
+            </div>
+        </div>
+    </div>
+    <div class="pic">
+        <img title="SecureVault" id="logo2" src="/static/img5.jpg">
+    </div>
+    <div class="features">
+        <div class="box" title="End-to-End Encryption">
+            <i data-lucide="shield"></i>
+            <h4>End-to-End Encryption</h4>
+            <p>Your data is encrypted on your device before it ever leaves. We can't see it, and neither can anyone else.</p>
+        </div>
+        <div class="box" title="Zero Knowledge Architecture">
+            <i data-lucide="key"></i>
+            <h4>Zero-Knowledge Architechture</h4>
+            <p>Only you have access to your master key. We never store or transmit your master password.</p>
+        </div>
+        <div class="box" title="Organised Storage">
+            <i data-lucide="file-key"></i>
+            <h4>Organized Storage</h4>
+            <p>Store passwords, credit cards, secure notes, and more in beautifully organized categories.</p>
+        </div>
+        <div class="box" title="Secure Sharing">
+            <i data-lucide="lock"></i>
+            <h4>Auto-Fill</h4>
+            <p>Seamlessly fill in your credentials across websites and apps with a single click.</p>
+        </div>
+    </div>
+    <div class="bottom">
+        <h2>Ready to Secure Your Digital Life?</h2>
+        <p>Start your Experience with SecureVault today!</p>
+        <a href="/signup"><button>Start Free Trial</button></a>
+    </div>
+    <div class="down">
+        <p>&copy; 2026 SecureVault &bull; Prachi Shankar Inamdar. All Rights Reserved.</p>
+        <div title="Secure Vault">
+            <i data-lucide="scan"></i>
+            <i data-lucide="eye"></i>
+            <i data-lucide="alert-triangle"></i>
+            <i data-lucide="cpu"></i>
+            <i data-lucide="activity"></i>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

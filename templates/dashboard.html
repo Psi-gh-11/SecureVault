@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentails Vault | Dashboard</title>
+    <style>
+        #svg {width: 25px !important; height: 25px !important; padding: 10px; border-radius: 20px; background-color: #0a1431;}
+        #svg:hover {transition: 0.3s ease; background-color: #00c896; opacity: 0.7; stroke: rgb(63, 58, 58);}
+        #svg1 {width: 35px !important; height: 35px !important; padding: 10px; background-color: #1e2747;}
+        #svg31, #svg32, #svg33 {width: 15px !important; height: 15px !important; border-radius: 50%; padding: 0;}
+        #svg31 { background-color: #00c896; }
+        #svg32 { background-color: #facc15; }
+        #svg33 { background-color: #ef4444; }
+        #h3 {font-size: 25px; margin: 40px auto;}
+        #i {width: 25px !important; height: 25px !important;}
+        .vault-card:hover {transition: 0.3s ease; border: 1px solid #14f5bc;}
+    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="top-right">
+            <a href="/settings"><i id="svg" data-lucide="settings"></i></a>
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+    <div>
+        <div class="parent">
+            <h1>Welcome, <span style="color: #14f5bc;">{{ username }}</span></h1>
+            <p>Your Vault is Secure and Ready to use!</p>
+        </div>
+        <div class="logs">
+            <div class="detail" title="Total Credentials">
+                <i data-lucide="key"></i>
+                <h3 style="font-size: 25px;">{{ number }}</h3>
+                <p>Total Credentials Stored</p>
+            </div>
+            <div class="detail" title="Total Vaults">
+                <i data-lucide="file-key"></i>
+                <h3 style="font-size: 25px;">{{ vault_count }}</h3>
+                <p>Total Vaults Created</p>
+            </div>
+            <div class="detail" title="Security Score">
+                <i data-lucide="shield"></i>
+                <h3 style="font-size: 25px;">{{ score }}/100</h3>
+                <p>Overall Security Score</p>
+            </div>
+        </div>
+        <div class="create-btn">
+            <i id="plus" data-lucide="plus"></i>
+            <h3>Create New Vault</h3>
+            <p style="color: #b2b2b6">Store passwords, website credentials, pins, secure notes, and more in a new encrypted vault</p>
+            <a href="/vault"><button>Create Vault +</button></a>
+        </div>
+        <div class="vaults">
+            <h3 style="width: 100%; font-size: 30px; margin: auto;">Your vaults</h3>
+            {% if not vaults %}
+                <div style="display: flex; justify-content: left; align-items: left; width: 100%;"><a href="/vault-details"><button>View</button></a></div>
+            {% endif %}
+            {% for v in vaults %}
+            <div class="vault-card">
+                <i id="lock" data-lucide="lock"></i>
+                <div class="group">
+                    <h3 style="width: 100%; font-size: 25px; margin: 10px auto;">{{ v[0] }}</h3> <!--vault name-->
+                    <div class="align">
+                        <i id="i1" data-lucide="clock"></i>
+                        <p style="font-size: 20px; margin: auto; text-align: left;">Date and Time Created: <span style="color: #14f5bc">{{ v[2] }}</span></p> <!--time and date-->
+                    </div>
+                    <div class="align">
+                        <i id="i1" data-lucide="key"></i>
+                        <p style="font-size: 20px; text-align: left; justify-content: left;">No. of Items stored: <span style="color: #14f5bc">{{ v[1] }}</span></p> <!--no. of items stored-->
+                    </div>
+                    <div class="align">
+                        <i id="i1" data-lucide="clock"></i>
+                        <p style="font-size: 20px; margin: auto; text-align: left;">Date and Time Updated: <span style="color: #14f5bc">{{ v[3] }}</span></p> <!--updations-->
+                    </div>
+                </div>
+                <a href="/vault-details"><button>View</button></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="sec">
+        <div class="sec-set">
+            <i id="svg1" data-lucide="shield"></i>
+            <h3>Password Strength Analysis</h3>
+        </div>
+        <div class="info">
+            <div class="left">
+                <i id="svg31" data-lucide="circle"></i>
+                <h3>Strong Passwords</h3>
+            </div>
+            <div style="font-size: 25px;" class="butn">{{ strong }}</div>
+        </div>
+        <div class="info">
+            <div class="left">
+                <i id="svg32" data-lucide="circle"></i>
+                <h3>Medium Passwords</h3>
+            </div>
+            <div style="font-size: 25px;" class="butn">{{ medium }}</div>
+        </div>
+        <div class="info">
+            <div class="left">
+                <i id="svg33" data-lucide="circle"></i>
+                <h3>Weak Passwords</h3>
+            </div>
+            <div style="font-size: 25px;" class="butn">{{ weak }}</div>
+        </div>
+        <h3 id="h3">Overall Security Health</h3>
+        <input id="securityRange" min="0" max="100" value="{{ score }}" data-score="{{ score }}" type="range" disabled>
+        <div class="health"><p id="scoreText">{{ score }} {{ grade }}</p></div>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

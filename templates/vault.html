@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Credentials Vault | Vault Creation</title>
+    <style>
+        #svg {width: 25px !important; height: 25px !important; padding: 10px; border-radius: 20px; background-color: #0a1431;}
+        #svg:hover {transition: 0.3s ease; background-color: #00c896; opacity: 0.7; stroke: rgb(63, 58, 58);}
+        .title {font-size: 35px; justify-content: center; margin: 0 auto;}
+        a {text-decoration: none;}
+    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <a href="/"><img id="logo" src="/static/img7.jpg"></a>
+            <p>SecureVault</p>
+        </div>
+        <div class="top-right">
+            <a href="/settings"><i id="svg" data-lucide="settings"></i></a>
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+    <a style="text-decoration: none;" href="/dashboard"><button style="width: fit-content; display: flex;">👈 Back to Dashboard</button></a>
+    <div class="make">
+        <h3 class="title">Create your desired vault type</h3>
+        <div class="choose-vault">
+            <select class="select" id="vaultType">
+                <option value="" selected disabled>Select Vault Type</option>
+                <option value="password" name="pwd-vault">Password Vault</option>
+                <option value="card" name="pay-vault">Payments Card</option>
+                <option value="note" name="note-vault">Secure Notes</option>
+                <option value="api" name="api-vault">API Keys</option>
+            </select>
+        </div>
+        <form action="/password-vault" method="POST">
+            <div class="form" id="passwordForm">
+                <label class="label">Website URL</label>
+                <input type="text" name="website" class="input" placeholder="Website" required>
+                <label class="label">Username</label>
+                <input type="text" name="username" class="input" placeholder="Username" required>
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input" placeholder="Password" required>
+                <button class="b">Create Vault</button>
+            </div>
+        </form>
+        <form action="/card-vault" method="POST">
+            <div class="form" id="cardForm">
+                <label class="label">Card Holder Name (or Nickname)</label>
+                <input type="text" name="cname" class="input" placeholder="Holder Nickname" required>
+                <label class="label">Card Number (Last 4 digits)</label>
+                <input type="text" name="cardno" class="input" placeholder="Card Number" required>
+                <label class="label">Date of Expiry</label>
+                <input type="text" name="expiry" class="input" placeholder="Expiry" required>
+                <label class="label">A note to yourself</label>
+                <input type="text" name="remainder" class="input" placeholder="Your Remainder" required>
+                <button class="b">Create Vault</button>
+            </div>
+        </form>
+        <form action="/note-vault" method="POST">    
+            <div class="form" id="noteForm">
+                <label class="label">Your Notes</label>
+                <textarea type="text" name="note" placeholder="Your secure note" required></textarea>
+                <button class="b">Create Vault</button>
+            </div>
+        </form>
+        <form action="/api-vault" method="POST">
+            <div class="form" id="apiForm">
+                <label class="label">Service Website or App</label>
+                <input type="text" name="service" class="input" placeholder="Service" required>
+                <label class="label">API Key Details</label>
+                <input type="password" name="apikey" class="input" placeholder="API Key" required>
+                <button class="b">Create Vault</button>
+            </div>
+        </form>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
